@@ -9,11 +9,12 @@ export default class Clock extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      audio: new Audio('/static/beep.wav'),
       timer: props.start * 60,
       start: props.start,
       labelCount: props.labelCount,
       active: false,
-      blinkCount: 0,
+      blinkCount: 50,
       breakDuration: '5',
       workDuration: props.start,
       mode: 'Working',
@@ -39,10 +40,14 @@ export default class Clock extends Component {
   }
   
   decrementTimer() {
-    const { active, timer, start, mode, breakDuration, workDuration, blinkCount } = this.state;
+    const { active, timer, start, mode, breakDuration, workDuration, blinkCount, audio } = this.state;
     if (active && timer > 0) {
       this.setState({ timer: timer - 0.15 });     
     } else if (active && blinkCount > 0) {
+      // play four beeps
+      if (blinkCount === 49 || blinkCount === 39 || blinkCount === 29|| blinkCount === 19) {
+        audio.play();
+      }
       this.setState({ blinkCount: blinkCount - 1 });
     } else if(active && mode === 'Working') {
       this.setState({ mode: 'On Break', timer: breakDuration * 60, start: breakDuration, blinkCount: 50 });

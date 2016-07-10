@@ -75,7 +75,7 @@ h1 {
 
 .blink {
   background-color: red !important;
-  animation: blinker 1s linear infinite;
+  animation: blinker 2s ease-in-out infinite;
 }
 
 @keyframes blinker {  
