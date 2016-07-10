@@ -119,12 +119,13 @@ h1 {
   height: 225px;
   position: absolute;
   left: 197px;
-  width: 1.5%;
+  width: 5px;
   top: -25px;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 label {
+  @include noSelect();
   margin: 0px !important;
   line-height: 16px !important;
 }
@@ -146,6 +147,10 @@ label {
 }
 
 .inner-input-container {
+  margin-top: 5px;
+}
+
+.input-field {
   margin-top: 5px;
 }
 
