@@ -13,7 +13,7 @@ export default class Clock extends Component {
       start: props.start,
       labelCount: props.labelCount,
       active: false,
-      blinkCount: 5,
+      blinkCount: 0,
       breakDuration: '5',
       workDuration: props.start,
       mode: 'Working',
@@ -42,10 +42,12 @@ export default class Clock extends Component {
     const { active, timer, start, mode, breakDuration, workDuration, blinkCount } = this.state;
     if (active && timer > 0) {
       this.setState({ timer: timer - 0.15 });     
+    } else if (active && blinkCount > 0) {
+      this.setState({ blinkCount: blinkCount - 1 });
     } else if(active && mode === 'Working') {
-      this.setState({ mode: 'On Break', timer: breakDuration * 60, start: breakDuration });
+      this.setState({ mode: 'On Break', timer: breakDuration * 60, start: breakDuration, blinkCount: 50 });
     } else if(active && mode === 'On Break') {
-      this.setState({ mode: 'Working', timer: workDuration * 60, start: workDuration });      
+      this.setState({ mode: 'Working', timer: workDuration * 60, start: workDuration, blinkCount: 50 });      
     }
   }
   
@@ -133,7 +135,8 @@ export default class Clock extends Component {
   }
 
   render() {
-    const { start, mode, timer, active, labelCount, sessionDuration, breakDuration, workDuration } = this.state;
+    const { start, mode, timer, active, labelCount, sessionDuration, 
+      breakDuration, workDuration, blinkCount } = this.state;
     const labels = this.generateLabels(225, parseInt(start), parseInt(labelCount))
     const radians = -2 * Math.PI * (timer / (60 * start));
     
@@ -142,11 +145,10 @@ export default class Clock extends Component {
     const stop = <i className="fa fa-stop" aria-hidden="true"></i>;
 
     const playPauseStyle = active ? { color: 'red'} : { color: 'green' };
-
     return (
       <div className="clock">
         <div id="clock-container" >
-        <div id="clock-body" className="shadow">
+        <div id="clock-body" className={`shadow ${blinkCount < 50 ? 'blink' : ''}`}>
           <Hand radians={radians}/>
           <div id="input-container">
             <div id="input-duration-container">        

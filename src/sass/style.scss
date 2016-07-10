@@ -136,14 +136,14 @@ h1 {
 }
 
 .hand {
-  z-index: -1;
+  @include blur(1px);
   background: #000;
   height: 225px;
   position: absolute;
   left: 197px;
-  width: 5px;
+  width: 10px;
   top: -25px;
-  border-radius: 1px;
+  border-radius: 50%;
 }
 
 label {
