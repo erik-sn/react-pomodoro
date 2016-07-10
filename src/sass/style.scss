@@ -105,14 +105,16 @@ h1 {
 }
 
 .hand-container {
+  z-index: 2;
   @include center();
   @include rotate(270deg);
   height: 400px;
   width: 400px;
+  pointer-events: none; /* allow "clicking through" this container */
 }
 
 .hand {
-  z-index: 3;
+  z-index: -1;
   background: #000;
   height: 225px;
   position: absolute;
@@ -126,11 +128,12 @@ h1 {
   z-index: 3;
   width: 50px;
   height: 30px;
-  font-size: 16px;
+  font-size: 15px;
+  
 }
 
 #input-container {
-  z-index: 3;
+  z-index: 1;
   position: absolute;
   height: 200px;
   margin-left: 50px;
@@ -171,6 +174,7 @@ h1 {
   @include blur(5px);
   display: flex;
   align-items: center;
+  justify-content: center;
   font-family: 'sans-serif';
   background-color: white;
   text-align: center;
