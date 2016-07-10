@@ -62,7 +62,7 @@ export default class Clock extends Component {
   
   workChange(e) {
     const val = e.target.value;
-    if (val >= 1 && val <= 999) {
+    if (val <= 999) {
       this.setState({ 
         workDuration: val,
         start: this.state.mode === 'Working' ? val : this.state.start,
@@ -73,7 +73,7 @@ export default class Clock extends Component {
   
   breakChange(e) {
     const val = e.target.value;
-    if (val >= 1 && val <= 999) {
+    if (val <= 999) {
       this.setState({ 
         breakDuration: val,
         start: this.state.mode === 'On Break' ? val : this.state.start,
@@ -87,6 +87,12 @@ export default class Clock extends Component {
     if (val <= 30) {
       this.setState({ labelCount: val });
     }
+  }
+  
+  changeState(field, val) {
+    const update = {};
+    update[field] = parseInt(this.state[field]) + val;
+    this.setState(update);
   }
   
   generateLabels(radius, start, labelCount) {
@@ -116,7 +122,7 @@ export default class Clock extends Component {
 
   render() {
     const { start, mode, timer, active, labelCount, sessionDuration, breakDuration, workDuration } = this.state;
-    const labels = this.generateLabels(225, start, labelCount);
+    const labels = this.generateLabels(225, parseInt(start), parseInt(labelCount))
     const radians = -2 * Math.PI * (timer / (60 * start));
     
     const pause = <i className="fa fa-pause" aria-hidden="true"></i>;
@@ -133,13 +139,31 @@ export default class Clock extends Component {
           <div id="input-container">
             <div id="input-duration-container">
               <label>Session:</label>
-              <input id="session-input" className="form-control user-input" onChange={this.workChange} mode="text" value={workDuration} />
+              <div>
+                <div className="plusminus-icon" id="minus-work" onClick={() => this.changeState('workDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
+                <div className="plusminus-icon">
+                  <input id="session-input" className="form-control user-input" onChange={this.workChange} mode="text" value={workDuration} />
+                </div>
+                <div className="plusminus-icon" id="plus-work" onClick={() => this.changeState('workDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
+              </div>
               <label>Break:</label>
-              <input id="break-input" className="form-control user-input" onChange={this.breakChange} mode="text" value={breakDuration} />
+              <div>
+                <div className="plusminus-icon" id="minus-break" onClick={() => this.changeState('breakDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
+                <div className="plusminus-icon" >
+                  <input id="break-input" className="form-control user-input" onChange={this.breakChange} mode="text" value={breakDuration} />
+                </div>
+                <div className="plusminus-icon" id="plus-break" onClick={() => this.changeState('breakDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
+              </div>
             </div>
             <div id="input-config-container">      
-              <label>Label Count:</label>      
-              <input id="label-input" className="form-control user-input" onChange={this.labelChange} mode="text" value={labelCount} />
+              <label>Labels:</label>
+              <div>
+                <div className="plusminus-icon" id="minus-labels" onClick={() => this.changeState('labelCount', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
+                <div className="plusminus-icon" >
+                  <input id="label-input" className="form-control user-input" onChange={this.labelChange} mode="text" value={labelCount} />
+                </div>
+                <div className="plusminus-icon" id="plus-labels" onClick={() => this.changeState('labelCount', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
+              </div>              
               <div id="start-stop-container" onClick={this.toggleActive} style={playPauseStyle}>{active ? pause : play}</div>
               <div id="reset-container" onClick={this.resetTimer}>{stop}</div>
             </div>
