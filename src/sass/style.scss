@@ -1,6 +1,3 @@
-$primary: #4C6C8B;
-$secondary: #758FA8;
-
 @mixin noSelect() {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -45,7 +42,7 @@ $secondary: #758FA8;
 
 body {
   margin: 0px;
-  background-color: #6B7A83;
+  background-color: #030202;
 }
 
 #app-container {
@@ -61,18 +58,25 @@ h1 {
 
 #clock-body {
   @include center();
-  @include blur(15px);
   height: 400px;
   width: 400px;
   border-radius: 50%;
-  background-color: #132632;
-  color: #4D5E69;
+  background-color: #5D5D5D;
+  color: #929090;
   text-align: center;
+}
+
+.shadow {
+  box-shadow: inset 0px 0px 9px -2px #000000,0px -1px 9px -1px #212121;
+  -webkit-box-shadow: inset 0px 0px 9px -2px #000000,0px -1px 9px -1px #212121;
+  -moz-box-shadow: inset 0px 0px 9px -2px #000000,0px -1px 9px -1px #212121;
+  -o-box-shadow: inset 0px 0px 9px -2px #000000,0px -1px 9px -1px #212121;
 }
 
 #clock-container {
   @include center();
   @include blur(15px);  
+  background-color: #212121;
   height: 500px;
   width: 500px;
   border-radius: 50%;
@@ -81,20 +85,20 @@ h1 {
 .clock-tick {
   z-index: 1;
   position: absolute;
-  color: white;
   text-align: center;
   cursor: pointer;
+  font-size: 20px;
   width: 25px;
 }
 
 #clock-timer {
   @include center();
   @include blur(5px); 
+  background-color: #212121;
   z-index: 2;
   font-size: 60px;
   line-height: 130px;
   text-align: center;
-  background-color: red;
   height: 130px;
   width: 130px;
   border-radius: 50%;
@@ -142,9 +146,13 @@ h1 {
   float: left;
 }
 
+.fa {
+  cursor: pointer;
+}
+
 #start-stop-container {
   float: left;
-  margin-left: -10px;
+  margin-left: -13px;
   margin-top: 10px;
   height: 50px;
   width: 50px;

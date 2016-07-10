@@ -1,3 +1,3 @@
-# Calculator
+# Pomodoro Clock
 
-FreeCodeCamp project to build a simple calculator. Implemented using React/es6.
+FreeCodeCamp project to build a pomodoro clock. Implemented using React/es6.

@@ -16,6 +16,7 @@ export default class Clock extends Component {
       breakDuration: '5',
     };
     this.setTimer = this.setTimer.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.toggleActive = this.toggleActive.bind(this);
     this.generateLabels = this.generateLabels.bind(this);
@@ -34,25 +35,29 @@ export default class Clock extends Component {
   }
   
   decrementTimer() {
-    const { active, timer } = this.state;
+    const { active, timer, start } = this.state;
     if (active && timer > 0) {
       this.setState({ timer: timer - 0.05 });     
-    } else {
-      this.setState({ active: false });
+    } else if(active) {
+      this.setState({ active: false, timer: start });
     }
+  }
+  
+  resetTimer() {
+    this.setState({ timer: this.state.start, active: false });  
   }
   
   toggleActive() {
     const { timer, active, start } = this.state;
     this.setState({ active: !active });
-    if (Math.round(timer) === 0) {
+    if (timer <= 0) {
       this.setState({ timer: start});
     }
   }
   
   sessionChange(e) {
     const val = e.target.value;
-    if (val <= 120) {
+    if (val <= 999) {
       this.setState({ 
         sessionDuration: val,
         start: val,
@@ -63,14 +68,14 @@ export default class Clock extends Component {
   
   breakChange(e) {
     const val = e.target.value;
-    if (val <= 60) {
+    if (val <= 999) {
       this.setState({ breakDuration: val });
     }
   }
   
   labelChange(e) {
     const val = e.target.value;
-    if (val <= 25) {
+    if (val <= 30) {
       this.setState({ labelCount: val });
     }
   }
@@ -102,13 +107,12 @@ export default class Clock extends Component {
     const play = <i className="fa fa-play" aria-hidden="true"></i>;
     const stop = <i className="fa fa-stop" aria-hidden="true"></i>;
 
-
     const playPauseStyle = active ? { color: 'red'} : { color: 'green' };
 
     return (
       <div className="clock">
         <div id="clock-container" >
-        <div id="clock-body">
+        <div id="clock-body" className="shadow">
           <div id="input-container">
             <div id="input-duration-container">
               <label>Session:</label>
@@ -120,7 +124,7 @@ export default class Clock extends Component {
               <label>Tick Count:</label>      
               <input id="label-input" className="form-control user-input" onChange={this.labelChange} type="text" value={labelCount} />
               <div id="start-stop-container" onClick={this.toggleActive} style={playPauseStyle}>{active ? pause : play}</div>
-              <div id="reset-container">{stop}</div>
+              <div id="reset-container" onClick={this.resetTimer}>{stop}</div>
             </div>
           </div>
           <div id="clock-labels">{labels}</div>

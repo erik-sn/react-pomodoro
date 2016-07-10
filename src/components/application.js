@@ -47,7 +47,6 @@ export default class Application extends Component {
       <div>
         {showModal ? modal : ''}
         <div id="app-container" style={showModal ? { opacity: '0.3' } : {}} >
-          <h1 id="title">Pomodoro Clock</h1>
           <Clock timer={25} labelCount={10} />
         </div>
         <div id="footer">
