@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:300);
+$font: Open Sans, Arial;
+
 @mixin noSelect() {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -43,6 +46,7 @@
 body {
   margin: 0px;
   background-color: #030202;
+  font-family: $font;
 }
 
 #app-container {
