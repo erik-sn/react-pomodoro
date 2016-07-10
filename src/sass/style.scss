@@ -73,6 +73,15 @@ h1 {
   -o-box-shadow: inset 0px 0px 9px -2px #000000,0px -1px 9px -1px #212121;
 }
 
+.blink {
+  background-color: red !important;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.0; }
+}
+
 #clock-container {
   @include center();
   @include blur(15px);  
@@ -88,7 +97,20 @@ h1 {
   text-align: center;
   cursor: pointer;
   font-size: 20px;
-  width: 25px;
+  height: 30px;
+  line-height: 30px;
+  width: 35px;
+  
+  transition: color 0.15s ease-in-out;
+  transition: font-size 0.15s;
+}
+
+.clock-tick:hover {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  
+  transition: color 0.25s ease-in-out;
 }
 
 #clock-timer {
@@ -172,6 +194,11 @@ label {
 
 .fa {
   cursor: pointer;
+  transition: color 0.15s ease-in-out;
+}
+
+.fa:hover {
+  color: white;
 }
 
 .fa-minus, .fa-plus {

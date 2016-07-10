@@ -13,6 +13,7 @@ export default class Clock extends Component {
       start: props.start,
       labelCount: props.labelCount,
       active: false,
+      blinkCount: 5,
       breakDuration: '5',
       workDuration: props.start,
       mode: 'Working',
@@ -38,7 +39,7 @@ export default class Clock extends Component {
   }
   
   decrementTimer() {
-    const { active, timer, start, mode, breakDuration, workDuration } = this.state;
+    const { active, timer, start, mode, breakDuration, workDuration, blinkCount } = this.state;
     if (active && timer > 0) {
       this.setState({ timer: timer - 0.15 });     
     } else if(active && mode === 'Working') {
@@ -94,14 +95,16 @@ export default class Clock extends Component {
   plusMinus(field, val) {
     const update = {};
     const newVal = parseInt(this.state[field]) + val
-    update[field] = newVal;
-    
-    if ((this.state.mode === 'Working' && field === 'workDuration') || 
-        (this.state.mode === 'On Break' && field === 'breakDuration')) {
-      update.start = newVal;
-      update.timer = this.state.timer + 60 * val;
+    if (newVal >= 0) {
+      update[field] = newVal;
+      
+      if ((this.state.mode === 'Working' && field === 'workDuration') || 
+          (this.state.mode === 'On Break' && field === 'breakDuration')) {
+        update.start = newVal;
+        update.timer = this.state.timer + 60 * val;
+      }
+      this.setState(update);      
     }
-    this.setState(update);
   }
   
   generateLabels(radius, start, labelCount) {
@@ -110,7 +113,7 @@ export default class Clock extends Component {
     const timeIncrement = start / labelCount;
     let radians = Math.PI / 2;
     for (let i = 0; i < labelCount; i++) {
-      const x = radius - radius * Math.cos(radians) - 40;
+      const x = radius - radius * Math.cos(radians) - 45;
       const y = radius - radius * Math.sin(radians) - 35;
       radians += clockincrement;
       
