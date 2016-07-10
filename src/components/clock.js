@@ -91,7 +91,14 @@ export default class Clock extends Component {
   
   changeState(field, val) {
     const update = {};
-    update[field] = parseInt(this.state[field]) + val;
+    const newVal = parseInt(this.state[field]) + val
+    update[field] = newVal;
+    
+    if ((this.state.mode === 'Working' && field === 'workDuration') || 
+        (this.state.mode === 'On Break' && field === 'breakDuration')) {
+      update.start = newVal;
+      update.timer = this.state.timer + 60 * val;
+    }
     this.setState(update);
   }
   
@@ -137,27 +144,31 @@ export default class Clock extends Component {
         <div id="clock-body" className="shadow">
           <Hand radians={radians}/>
           <div id="input-container">
-            <div id="input-duration-container">
-              <label>Session:</label>
-              <div>
-                <div className="plusminus-icon" id="minus-work" onClick={() => this.changeState('workDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
-                <div className="plusminus-icon">
-                  <input id="session-input" className="form-control user-input" onChange={this.workChange} mode="text" value={workDuration} />
+            <div id="input-duration-container">            
+              <div className="inner-input-container">
+                <label>Session:</label>
+                <div>
+                  <div className="plusminus-icon" id="minus-work" onClick={() => this.changeState('workDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
+                  <div className="plusminus-icon">
+                    <input id="session-input" className="form-control user-input" onChange={this.workChange} mode="text" value={workDuration} />
+                  </div>
+                  <div className="plusminus-icon" id="plus-work" onClick={() => this.changeState('workDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
+                </div>      
+              </div>        
+              <div className="inner-input-container">
+                <label>Break:</label>
+                <div>
+                  <div className="plusminus-icon" id="minus-break" onClick={() => this.changeState('breakDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
+                  <div className="plusminus-icon" >
+                    <input id="break-input" className="form-control user-input" onChange={this.breakChange} mode="text" value={breakDuration} />
+                  </div>
+                  <div className="plusminus-icon" id="plus-break" onClick={() => this.changeState('breakDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
                 </div>
-                <div className="plusminus-icon" id="plus-work" onClick={() => this.changeState('workDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
-              </div>
-              <label>Break:</label>
-              <div>
-                <div className="plusminus-icon" id="minus-break" onClick={() => this.changeState('breakDuration', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
-                <div className="plusminus-icon" >
-                  <input id="break-input" className="form-control user-input" onChange={this.breakChange} mode="text" value={breakDuration} />
-                </div>
-                <div className="plusminus-icon" id="plus-break" onClick={() => this.changeState('breakDuration', 1)}><i className="fa fa-plus" aria-hidden="true"></i></div>
               </div>
             </div>
             <div id="input-config-container">      
               <label>Labels:</label>
-              <div>
+              <div className="inner-input-container">
                 <div className="plusminus-icon" id="minus-labels" onClick={() => this.changeState('labelCount', -1)}><i className="fa fa-minus" aria-hidden="true"></i></div>
                 <div className="plusminus-icon" >
                   <input id="label-input" className="form-control user-input" onChange={this.labelChange} mode="text" value={labelCount} />
