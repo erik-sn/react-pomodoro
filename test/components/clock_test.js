@@ -1,21 +1,38 @@
 import React from 'react';
-import { fRender, expect } from '../test_helper';
+import { sRender, expect } from '../test_helper';
 
 import Clock from '../../src/components/clock';
 
 describe('Clock' , () => {
   let component;
-
-  const state = {
-  };
+  
+  window.Audio = function Audio() {
+    return {
+      play() {
+        // do nothing;
+      }
+    }
+  }
 
   const props = {
-    timer: 500,
+    start: 10,
     labelCount: 10,
   };
 
+  const state = {
+    audio: window.Audio,
+    timer: props.start * 60,
+    start: props.start,
+    labelCount: props.labelCount,
+    active: false,
+    blinkCount: 50,
+    breakDuration: '5',
+    workDuration: props.start,
+    mode: 'Working',
+  };
+
   beforeEach(() => {
-    component = fRender(<Clock {...props} />, state);
+    component = sRender(<Clock {...props} />, state);
   });
 
   it('Renders something', () => {

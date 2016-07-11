@@ -49,8 +49,8 @@ export default class Application extends Component {
         <div id="app-container" style={showModal ? { opacity: '0.3' } : {}} >
           <Clock start={25} labelCount={12} />
         </div>
-        <div id="footer">
-          <a href="https://github.com/kiresuah/react-pomodoro"><img height="55" src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" alt="github" /></a>
+        <div id="footer" onClick={() => window.open('https://github.com/kiresuah/react-pomodoro', '_blank')}>
+          <img height="55" src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" alt="github" />
           <span id="info-tab">Application created by Erik Niehaus</span>
         </div>
       </div>

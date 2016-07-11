@@ -116,13 +116,13 @@ export default class Clock extends Component {
   
   generateLabels(radius, start, labelCount) {
     const results = [];
-    const clockincrement = 2 * Math.PI / labelCount;   
+    const radiansIncrement = 2 * Math.PI / labelCount;   
     const timeIncrement = start / labelCount;
     let radians = Math.PI / 2;
     for (let i = 0; i < labelCount; i++) {
-      const x = radius - radius * Math.cos(radians) - 45;
+      const x = radius - radius * Math.cos(radians) - 40;
       const y = radius - radius * Math.sin(radians) - 35;
-      radians += clockincrement;
+      radians += radiansIncrement;
       
       // adjust the text for case where Math.round would create duplicate labels
       let text;
