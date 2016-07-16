@@ -9,7 +9,7 @@ export default class Clock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      audio: new Audio('/static/beep.wav'),
+      audio: new Audio('/resources/beep.wav'),
       timer: props.start * 60,
       start: props.start,
       labelCount: props.labelCount,
