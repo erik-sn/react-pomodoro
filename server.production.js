@@ -20,14 +20,14 @@ import compression from 'compression';
 import http from 'http';
 
 const app = express(); // delcare application
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(compression()); // compress compatible files for quicker client load time
 app.use(logger('dev')); // log content
 
 // Set path to public assets
-app.use('/static', express.static('static'));
-app.use('/static', express.static('dist'));
+app.use('/pomodoro/resources/', express.static('resources'));
+app.use('/pomodoro/static/', express.static('dist'));
 
 app.use('*', (req, res) => {
   res.status(200).send(renderFullPage());
@@ -55,13 +55,13 @@ function renderFullPage() {
     <!doctype html>
     <html>
       <head>
-        <link rel="stylesheet" href="/static/bundle.min.css">
+        <link rel="stylesheet" href="/pomodoro/static/bundle.min.css">
         <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
       </head>
       <body id="app-body">
         <div class="react-container"></div>
       </body>
-      <script src="/static/bundle.min.js"></script>
+      <script src="/pomodoro/static/bundle.min.js"></script>
     </html>
   `;
 }
