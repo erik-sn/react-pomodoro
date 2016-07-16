@@ -55,8 +55,8 @@ function renderFullPage() {
     <!doctype html>
     <html>
       <head>
-        <link rel="stylesheet" href="/pomodoro/static/bundle.min.css">
-        <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/pomodoro/static/bundle.min.css">    
+        <script src="https://use.fontawesome.com/79b701a885.js"></script>
       </head>
       <body id="app-body">
         <div class="react-container"></div>

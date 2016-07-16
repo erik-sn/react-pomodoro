@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 
 export default class InputField extends Component {
   
-  constructor(props) {
-    super(props);
-  }
-  
   render() {
     const { label, plusminus, onChange, stateField, value } = this.props;
     return (

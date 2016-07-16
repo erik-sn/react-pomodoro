@@ -38,11 +38,6 @@ $font: Open Sans, Arial;
   transform: rotate($degrees);
 }
 
-@font-face {
-  font-family:"Prototype";
-  src: url("/static/Prototype.ttf") /* TTF file for CSS3 browsers */
-}
-
 body {
   margin: 0px;
   background-color: #030202;
