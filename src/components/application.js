@@ -17,18 +17,6 @@ export default class Application extends Component {
     this.hideModal = this.hideModal.bind(this);
   }
 
-  /**
-   * Check to see if this site has been visited, if it hasn't show the modal
-   * that gives the user somem information. Additionally, bind keyboard handlers
-   * to button presses to give calculator functionality.
-   */
-  componentWillMount() {
-    const visited = JSON.parse(window.localStorage.getItem('visited')) || false;
-    if (!visited) {
-      this.setState({ showModal: true });
-    }
-  }
-
   hideModal() {
     window.localStorage.setItem('visited', true);
     this.setState({ showModal: false });
